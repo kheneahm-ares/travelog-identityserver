@@ -351,3 +351,4 @@ MigrationBackup/
 /IdentityServer/appsettings.json
 /IdentityServer/Properties/launchSettings.json
 /IdentityServer/IdentityServer.sln
+*.rsa
