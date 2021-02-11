@@ -28,7 +28,7 @@ namespace IdentityServer
             services.AddDbContext<AppDbContext>(config => config.UseInMemoryDatabase("MemoryDB"));
 
 
-            services.AddIdentityCore<AppUser>(options =>
+            services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 //just for the sake of simplicity, don't require certain pass vals
                 options.Password.RequiredLength = 4;
@@ -66,6 +66,8 @@ namespace IdentityServer
             }
 
             app.UseRouting();
+
+            app.UseIdentityServer();
 
             app.UseEndpoints(endpoints =>
             {
