@@ -36,7 +36,6 @@ namespace IdentityServer
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<AppDbContext>()
-              .AddSignInManager<SignInManager<AppUser>>()
               .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(config =>
