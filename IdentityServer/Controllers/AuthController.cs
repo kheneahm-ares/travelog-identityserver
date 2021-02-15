@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -73,21 +74,10 @@ namespace IdentityServer.Controllers
 
             if (result.Succeeded)
             {
+                //add displayname in our id_token
+                await _userManager.AddClaimAsync(newUser, new Claim("DisplayName", newUser.DisplayName));
                 await _signInManager.SignInAsync(newUser, false);
 
-                var apiClient = _httpClientFactory.CreateClient();
-                var jsonUser = JsonConvert.SerializeObject(new { Username = newUser.UserName, DisplayName = newUser.DisplayName });
-
-                var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5003/User/Create");
-                requestMessage.Content = new StringContent(jsonUser.ToString(), Encoding.UTF8, "application/json");
-
-                var apiResponse = await apiClient.SendAsync(requestMessage);
-
-                if(!apiResponse.IsSuccessStatusCode)
-                {
-                    //remove recently created user
-                    await _userManager.DeleteAsync(newUser);
-                }
                 //redirect back to our servers callback
                 return Redirect(viewModel.ReturnUrl);
 

@@ -16,6 +16,14 @@ namespace IdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource
+                {
+                    Name = "extraprofile.scope",
+                    UserClaims =
+                    {
+                        "DisplayName"
+                    }
+                }
             };
 
         public static IEnumerable<ApiResource> GetApis() =>
@@ -40,7 +48,7 @@ namespace IdentityServer
                 AllowedGrantTypes = GrantTypes.Code, //how to retrieve tokens
                 RequirePkce = true,
                 RequireClientSecret = false,
-                AllowedScopes = { "openid", "TravelogApi", "profile" }, //what can this client access
+                AllowedScopes = { "openid", "TravelogApi", "profile", "extraprofile.scope" }, //what can this client access
                 RedirectUris = {"http://localhost:3000/auth/signin-oidc" }, //what we specified in our js client
                 PostLogoutRedirectUris = {"https://localhost:44321/Home/Index" }, //what we specified in our js client
                 RequireConsent = false,
