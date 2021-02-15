@@ -52,6 +52,7 @@ namespace IdentityServer
                     .AddInMemoryClients(IdentityConfigs.GetClients())
                     .AddDeveloperSigningCredential(); //generate certificate for signing token like our secret key in jwt
 
+            services.AddHttpClient();
             services.AddControllersWithViews();
 
         }

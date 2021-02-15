@@ -10,6 +10,8 @@ namespace IdentityServer.ViewModels
     public class RegisterViewModel
     {
         [Required]
+        public string DisplayName { get; set; }
+        [Required]
         public string Username { get; set; }
         [Required]
         [DataType(DataType.Password)]
