@@ -50,7 +50,7 @@ namespace IdentityServer
                 RequireClientSecret = false,
                 AllowedScopes = { "openid", "TravelogApi", "profile", "extraprofile.scope" }, //what can this client access
                 RedirectUris = {"http://localhost:3000/auth/signin-oidc" }, //what we specified in our js client
-                PostLogoutRedirectUris = {"https://localhost:44321/Home/Index" }, //what we specified in our js client
+                PostLogoutRedirectUris = {"https://localhost:3000/" }, //what we specified in our js client
                 RequireConsent = false,
                 AllowAccessTokensViaBrowser = true,
                 AllowedCorsOrigins = { "http://localhost:3000"},

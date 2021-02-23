@@ -26,9 +26,11 @@ namespace IdentityServer
             {
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
-                var newUser = new AppUser() { UserName = "testUser"};
+                var newUser = new AppUser() { UserName = "testUser", DisplayName = "test user"};
                 userManager.CreateAsync(newUser, "password").GetAwaiter().GetResult(); //it's okay to block since the app is just starting up
 
+                newUser = new AppUser() { UserName = "testUser2", DisplayName = "test user 2" };
+                userManager.CreateAsync(newUser, "password").GetAwaiter().GetResult(); //it's okay to block since the app is just starting up
 
                 //seed our configs
                 scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();

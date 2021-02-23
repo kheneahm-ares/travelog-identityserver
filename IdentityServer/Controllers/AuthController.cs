@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using IdentityServer.ViewModels;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -15,20 +16,34 @@ namespace IdentityServer.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IIdentityServerInteractionService _interactionService;
 
         public AuthController(SignInManager<AppUser> signInManager,
                               UserManager<AppUser> userManager,
-                              IHttpClientFactory httpClientFactory)
+                              IHttpClientFactory httpClientFactory,
+                              IIdentityServerInteractionService interactionService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _httpClientFactory = httpClientFactory;
+            _interactionService = interactionService;
         }
 
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
+        }
+
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            await _signInManager.SignOutAsync();
+
+            //get logout context 
+            var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
+
+            return Redirect(logoutRequest.PostLogoutRedirectUri);
+
         }
 
         [HttpPost]
