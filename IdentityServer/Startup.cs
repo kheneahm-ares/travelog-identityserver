@@ -42,11 +42,24 @@ namespace IdentityServer
                 config.LogoutPath = "/Auth/Logout"; //logout from our identityserver
             });
 
+            services.AddCors((config) =>
+            {
+                config.AddPolicy("IdentityServerCors", (polConfig) =>
+                {
+                    polConfig
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000")
+                        .WithExposedHeaders("WWW-Authenticate")
+                        .AllowCredentials();
+                });
+            });
+
             var migrationsAssembly = typeof(AppDbContext).Assembly.GetName().Name;
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<AppUser>() //integrate identity with identityserver
-                // this adds the config data from DB (clients, resources)
+                                              // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
@@ -80,6 +93,8 @@ namespace IdentityServer
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("IdentityServerCors");
 
             app.UseRouting();
 
