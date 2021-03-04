@@ -1,31 +1,40 @@
 ﻿@model IdentityServer.ViewModels.RegisterViewModel
 
-<form asp-controller="Auth" asp-action="Register" method="post">
-    <input type="hidden" asp-for="ReturnUrl" />
-    <div>
-        <label>Display Name</label>
-        <input asp-for="DisplayName" />
-        <span asp-validation-for="DisplayName"></span>
-    </div>
-    <div>
-        <label>Username</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
-    </div>
-    <div>
-        <label>Password</label>
-        <input asp-for="Password" type="password" />
-        <span asp-validation-for="Password"></span>
+@{
+    ViewData["Title"] = "Register";
 
-    </div>
-    <div>
-        <label>Confirm Password</label>
-        <input asp-for="ConfirmPassword" type="password" />
-        <span asp-validation-for="ConfirmPassword"></span>
-    </div>
+}
 
-    <div>
-        <button type="submit">Register</button>
-    </div>
+<div class="auth-form">
+    <div class="main-div">
+        <div class="panel">
+            <h2>Travelog IDP Registration</h2>
+            <p>Please fill out the form</p>
+        </div>
 
-</form>
+        <form id="Login" asp-controller="Auth" asp-action="Register" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group">
+                <input asp-for="DisplayName" class="form-control" placeholder="Display Name">
+                <span asp-validation-for="DisplayName"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Username" class="form-control" placeholder="Username">
+                <span asp-validation-for="Username"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Confirm Password">
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+            <div>
+                <a class="return-link" asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">Sign In</a>
+            </div>
+        </form>
+    </div>
+</div>

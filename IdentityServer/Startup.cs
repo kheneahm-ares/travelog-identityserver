@@ -83,7 +83,8 @@ namespace IdentityServer
                 .AddDeveloperSigningCredential(); //generate certificate for signing token like our secret key in jwt
 
             services.AddHttpClient();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +95,7 @@ namespace IdentityServer
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseCors("IdentityServerCors");
 
             app.UseRouting();

@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using IdentityServer.ViewModels;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -68,7 +69,7 @@ namespace IdentityServer.Controllers
         [HttpGet]
         public IActionResult Register(string returnUrl)
         {
-            return View(new RegisterViewModel { ReturnUrl = returnUrl });
+             return View(new RegisterViewModel { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
