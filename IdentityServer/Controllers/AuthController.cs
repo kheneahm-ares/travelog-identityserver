@@ -60,6 +60,9 @@ namespace IdentityServer.Controllers
 
             if (result.Succeeded)
             {
+                var user = await _userManager.FindByNameAsync(viewModel.Username);
+                await _userManager.AddClaimAsync(user, new Claim("DisplayName", user.DisplayName));
+
                 return Redirect(viewModel.ReturnUrl);
             }
 
