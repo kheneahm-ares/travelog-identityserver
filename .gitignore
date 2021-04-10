@@ -353,3 +353,5 @@ MigrationBackup/
 /IdentityServer/IdentityServer.sln
 *.rsa
 /IdentityServer/wwwroot/lib/
+.vscode/tasks.json
+.vscode/launch.json

@@ -1,0 +1,21 @@
+#build project for prod use
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
+
+WORKDIR /app
+
+COPY *.sln .
+COPY ./IdentityServer/*.csproj ./IdentityServer/
+COPY ./Domain/*.csproj ./Domain/
+COPY ./DataAccess/*.csproj ./DataAccess/
+COPY ./Persistence/*.csproj ./Persistence/
+
+RUN dotnet restore
+
+COPY ./IdentityServer/. ./IdentityServer/
+COPY ./Domain/. ./Domain
+COPY ./DataAccess/. ./DataAccess/
+COPY ./Persistence/. ./Persistence/
+
+WORKDIR /app/IdentityServer
+
+ENTRYPOINT [ "dotnet", "watch", "run", "--no-restore", "--urls", "http://0.0.0.0:5001" ]
