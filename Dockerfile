@@ -7,7 +7,6 @@ WORKDIR /app
 COPY *.sln .
 COPY ./IdentityServer/*.csproj ./IdentityServer/
 COPY ./Domain/*.csproj ./Domain/
-COPY ./DataAccess/*.csproj ./DataAccess/
 COPY ./Persistence/*.csproj ./Persistence/
 
 RUN dotnet restore
@@ -15,7 +14,6 @@ RUN dotnet restore
 #copy rest and publish 
 COPY ./IdentityServer/. ./IdentityServer/
 COPY ./Domain/. ./Domain
-COPY ./DataAccess/. ./DataAccess/
 COPY ./Persistence/. ./Persistence/
 
 RUN dotnet publish -c release -o out
