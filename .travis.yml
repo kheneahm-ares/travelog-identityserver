@@ -1,0 +1,13 @@
+sudo: required
+language: generic
+
+#require docker
+services:
+  - docker
+
+after_success:
+  - docker build -t kheneahmares/travelog-identityserver .
+  #log into docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #push the image to hub
+  - docker push kheneahmares/travelog-identityserver
